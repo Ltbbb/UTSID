@@ -1,9 +1,9 @@
 import cv2
 from picamera2 import Picamera2
-import time
 import slider_callbacks as callback
 import imaging as im
 import preprocess as prep
+import read_write as rw
 
 KEY_TAKE_PICTURE = "i"
 KEY_QUIT = "q"
@@ -12,7 +12,9 @@ IMAGE_FOLDER = "/img/" #TODO: impl image folder
 # Initial values for brightness and zoom
 brightness = 0
 zoom_factor = 0
-image_counter = 0  # Counter for images
+pwm_val = 0
+
+img_ctr = 0  # Counter for images
 image_paths = []  # List to store paths of captured images
 
 def main():
@@ -43,8 +45,8 @@ def capture_images():
         key = cv2.waitKey(1)
             
         if key == ord(KEY_TAKE_PICTURE):
-            image_counter += 1
-            image_name = f'image_{image_counter}.jpg'
+            img_ctr += 1
+            image_name = f'{IMAGE_FOLDER}/image_{img_ctr}.jpg'
             cv2.imwrite(image_name, frame)
             image_paths.append(image_name)
             print(f"Image captured and saved as '{image_name}'.")
@@ -56,6 +58,26 @@ def capture_images():
     # Release resources
     cv2.destroyAllWindows()
     picam2.stop()
+
+# Callback functions for trackbars
+def on_brightness_change(val):
+    global brightness
+    brightness = val - 50
+    print(f"Brightness changed to: {brightness}")
+
+def on_zoom_change(val):
+    global zoom_factor
+    zoom_factor = 1 + val / 10
+    print(f"Zoom factor changed to: {zoom_factor}")
+    
+def on_pwm_change(val):
+	global pwm_val
+	pwm_val= val*10
+	print(f"PWM factor changed to: {pwm_val}")
+	rw.send_to_arduino(pwm_val)
+      
+def turn_off_leds():
+	rw.send_to_arduino(0)
 
 def determine_best_img():
      # Determine the best quality image using both Laplacian variance and Fourier sharpness
@@ -87,4 +109,4 @@ def determine_best_img():
     return best_fourier_img, best_laplace_img
     
 #run main
-main();
+main()
