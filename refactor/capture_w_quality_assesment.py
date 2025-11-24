@@ -1,6 +1,5 @@
 import cv2
 from picamera2 import Picamera2
-import slider_callbacks as callback
 import imaging as im
 import preprocess as prep
 import read_write as rw
