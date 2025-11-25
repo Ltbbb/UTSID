@@ -1,7 +1,7 @@
 import cv2
 from picamera2 import Picamera2
 import time
-import imaging as im
+import refactor.utils.imaging as im
 import slider_callbacks as callback
 
 # Initial values for brightness and zoom

@@ -1,8 +1,8 @@
 import cv2
 from picamera2 import Picamera2
-import imaging as im
-import preprocess as prep
-import read_write as rw
+import refactor.utils.imaging as im
+import refactor.utils.preprocess as prep
+import refactor.utils.read_write as rw
 
 KEY_TAKE_PICTURE = "i"
 KEY_QUIT = "q"
