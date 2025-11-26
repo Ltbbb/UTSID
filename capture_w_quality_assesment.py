@@ -1,16 +1,16 @@
 import cv2
 from picamera2 import Picamera2
-import refactor.utils.imaging as im
-import refactor.utils.preprocess as prep
-import refactor.utils.read_write as rw
+import utils.imaging as im
+import utils.preprocess as prep
+import utils.read_write as rw
 
 KEY_TAKE_PICTURE = "i"
 KEY_QUIT = "q"
-IMAGE_FOLDER = "/img/" #TODO: impl image folder
+IMAGE_FOLDER = "./img" #TODO: impl image folder
 
 # Initial values for brightness and zoom
 brightness = 0
-zoom_factor = 0
+zoom_factor = 1
 pwm_val = 0
 
 img_ctr = 0  # Counter for images
@@ -44,36 +44,20 @@ def capture_images():
         key = cv2.waitKey(1)
             
         if key == ord(KEY_TAKE_PICTURE):
+            global img_ctr
             img_ctr += 1
-            image_name = f'{IMAGE_FOLDER}/image_{img_ctr}.jpg'
+            image_name = f'{IMAGE_FOLDER}/image_{img_ctr}.jpg' #TODO: error handling for non-existent path
             cv2.imwrite(image_name, frame)
             image_paths.append(image_name)
             print(f"Image captured and saved as '{image_name}'.")
         elif key == ord(KEY_QUIT):
             print("Quitting the program.")
-            callback.turn_off_leds()
+            turn_off_leds()
             break
         
     # Release resources
     cv2.destroyAllWindows()
     picam2.stop()
-
-# Callback functions for trackbars
-def on_brightness_change(val):
-    global brightness
-    brightness = val - 50
-    print(f"Brightness changed to: {brightness}")
-
-def on_zoom_change(val):
-    global zoom_factor
-    zoom_factor = 1 + val / 10
-    print(f"Zoom factor changed to: {zoom_factor}")
-    
-def on_pwm_change(val):
-	global pwm_val
-	pwm_val= val*10
-	print(f"PWM factor changed to: {pwm_val}")
-	rw.send_to_arduino(pwm_val)
       
 def turn_off_leds():
 	rw.send_to_arduino(0)
@@ -101,9 +85,12 @@ def determine_best_img():
             best_fourier_sharpness = fourier_sharp
             best_fourier_img = image_path
 
-    #TODO: combine metrics
-    print(f"The best quality image is '{best_fourier_img}' with Laplacian Variance of {best_laplacian_variance} and Fourier Sharpness of {best_fourier_sharpness}.")
-    print(f"The best quality image is '{best_laplace_img}' with Laplacian Variance of {best_laplacian_variance} and Fourier Sharpness of {best_fourier_sharpness}.")
+    #TODO: combine metrics in a better way
+    if best_img_f = best_img_l:
+        print(f"The best quality image is '{best_fourier_img}' with Laplacian Variance of {best_laplacian_variance} and Fourier Sharpness of {best_fourier_sharpness}.")
+    else:
+        print(f"Best quality fourier: '{best_fourier_img}' with value {best_fourier_sharpness}.")
+        print(f"Best quality laplace: '{best_laplace_img} with value {best_laplacian_variance}.") 
     
     return best_fourier_img, best_laplace_img
     
