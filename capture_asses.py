@@ -1,5 +1,6 @@
 import cv2
 from picamera2 import Picamera2
+import os
 import utils.imaging as im
 import utils.preprocess as prep
 import utils.read_write as rw
@@ -14,6 +15,7 @@ zoom_factor = 1
 pwm_val = 0
 
 img_ctr = 0  # Counter for images
+#TODO: create image folder that self-cleans each round and stored end results only?
 image_paths = []  # List to store paths of captured images
 
 def main():
@@ -21,8 +23,11 @@ def main():
     best_img_f, best_img_l = determine_best_img()
 
     #Display the best image
-    im.display_img(best_img_l, "Best Image Laplace")
-    im.display_img(best_img_f, "Best Image Fourier")
+    if best_img_f == best_img_l:
+        im.display_img(best_img_f, "Best Image :)")
+    else:
+        im.display_img(best_img_l, "Best Image Laplace")
+        im.display_img(best_img_f, "Best Image Fourier")
 
 def capture_images():
     # Initialize Picamera2
@@ -46,7 +51,11 @@ def capture_images():
         if key == ord(KEY_TAKE_PICTURE):
             global img_ctr
             img_ctr += 1
-            image_name = f'{IMAGE_FOLDER}/image_{img_ctr}.jpg' #TODO: error handling for non-existent path
+            if not os.path.exists(f"{IMAGE_FOLDER}"):
+                raise Exception(f"There is no folder called '{IMAGE_FOLDER}' in the current directory!")
+                #TODO: create folder for them?
+            #TODO: empty image folder?
+            image_name = f'{IMAGE_FOLDER}/image_{img_ctr}.jpg'
             cv2.imwrite(image_name, frame)
             image_paths.append(image_name)
             print(f"Image captured and saved as '{image_name}'.")
@@ -86,11 +95,8 @@ def determine_best_img():
             best_fourier_img = image_path
 
     #TODO: combine metrics in a better way
-    if best_img_f = best_img_l:
-        print(f"The best quality image is '{best_fourier_img}' with Laplacian Variance of {best_laplacian_variance} and Fourier Sharpness of {best_fourier_sharpness}.")
-    else:
-        print(f"Best quality fourier: '{best_fourier_img}' with value {best_fourier_sharpness}.")
-        print(f"Best quality laplace: '{best_laplace_img} with value {best_laplacian_variance}.") 
+    print(f"Best quality fourier: '{best_fourier_img}' with value {best_fourier_sharpness}.")
+    print(f"Best quality laplace: '{best_laplace_img} with value {best_laplacian_variance}.") 
     
     return best_fourier_img, best_laplace_img
     
