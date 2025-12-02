@@ -45,6 +45,16 @@ f2  = 0.5*sqrt(2)*(fx - fy); % /
 f11 = 0.5*fxx + fxy + 0.5*fyy; % \\
 f22 = 0.5*fxx - fxy + 0.5*fyy; % //
 
+%LISATB 02-12-25: typecasting for next formula
+fx = double(fx);
+fxx = double(fxx);
+fy = double(fy);
+fyy = double(fyy);
+f1 = double(f1);
+f11 = double(f11);
+f2 = double(f2);
+f22 = double(f22);
+
 [img_h, img_w] = size(img); % Image height and width
 
 %% Calculate curvatures
