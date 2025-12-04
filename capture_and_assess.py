@@ -39,7 +39,7 @@ def capture_multiple(frame):
         image_paths.append(image_name)
         print(f"Image captured and saved as '{image_name}'.")
     elif key == ord(cf.KEY_QUIT):
-        turn_off_leds()
+        cf.turn_off_leds()
         raise Exception("Closing capture!") #FIXME: is there a better way to do this?
 
 def determine_best_img():
