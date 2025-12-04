@@ -1,6 +1,16 @@
 import cv2
+from picamera2 import Picamera2
+import os
 import time
 import utils.read_write as rw
+
+KEY_TAKE_PICTURE = "i"
+KEY_QUIT = "q"
+
+# Initial values for brightness and zoom
+brightness = 0
+zoom_factor = 1
+pwm_val = 0
 
 def init_cam(picam2):
     config = picam2.create_still_configuration()  # Use still configuration
@@ -13,11 +23,33 @@ def init_cam(picam2):
 
     cv2.namedWindow('Camera')
     #cv2.setWindowProperty('Camera',cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
-        
+
     # Create trackbars for brightness and zoom
     cv2.createTrackbar('Brightness', 'Camera', 50, 100, on_brightness_change)
     cv2.createTrackbar('Zoom', 'Camera', 2, 20, on_zoom_change)
     cv2.createTrackbar('PWM', 'Camera', 100, 350, on_pwm_change)
+    
+def capture_images(picam2, on_frame):
+    while True:
+        # Capture frame-by-frame
+        frame = picam2.capture_array()
+
+        # Adjust brightness and zoom
+        frame = adjust_brightness(frame, brightness)
+        frame = apply_zoom(frame, zoom_factor)
+
+        # Display the frame
+        cv2.imshow('Camera', frame)
+
+        try:
+            on_frame(frame)
+        except Exception as e:
+            print(e)
+            break
+        
+    # Release resources
+    cv2.destroyAllWindows()
+    picam2.stop()
 
 # Function to adjust the brightness of the image
 def adjust_brightness(image, brightness):
@@ -55,6 +87,9 @@ def on_pwm_change(val):
 	pwm_val= val*10
 	print(f"PWM factor changed to: {pwm_val}")
 	rw.send_to_arduino(pwm_val)
+      
+def turn_off_leds():
+	rw.send_to_arduino(0)
 
 def display_img(img_path: str, caption: str):
     if img_path is not None:
@@ -63,5 +98,5 @@ def display_img(img_path: str, caption: str):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-        
-
+def display_on_frame(msg: str):
+    print(msg) #TODO: draw on frame
