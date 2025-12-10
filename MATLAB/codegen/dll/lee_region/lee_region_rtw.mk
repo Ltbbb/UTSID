@@ -2,9 +2,9 @@
 ## Makefile generated for component 'lee_region'. 
 ## 
 ## Makefile     : lee_region_rtw.mk
-## Generated on : Wed Dec 10 19:42:50 2025
-## Final product: ./lee_region.lib
-## Product type : static-library
+## Generated on : Wed Dec 10 19:52:24 2025
+## Final product: ./lee_region.dll
+## Product type : dynamic-library
 ## 
 ###########################################################################
 
@@ -17,7 +17,7 @@
 # MAKEFILE                Name of this makefile
 # COMPILER_COMMAND_FILE   Compiler command listing model reference header paths
 # CMD_FILE                Command file
-# MODELLIB                Static library target
+# DEF_FILE                Definition file
 
 PRODUCT_NAME              = lee_region
 MAKEFILE                  = lee_region_rtw.mk
@@ -32,9 +32,9 @@ MODEL_HAS_DYNAMICALLY_LOADED_SFCNS =
 RELATIVE_PATH_TO_ANCHOR   = ../../..
 COMPILER_COMMAND_FILE     = lee_region_rtw_comp.rsp
 CMD_FILE                  = lee_region_rtw.rsp
+DEF_FILE                  = $(PRODUCT_NAME).def
 C_STANDARD_OPTS           = -fwrapv
 CPP_STANDARD_OPTS         = -fwrapv
-MODELLIB                  = lee_region.lib
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
@@ -157,9 +157,9 @@ SHAREDLIB_LDFLAGS    = -shared -Wl,--no-undefined \
 ## OUTPUT INFO
 ###########################################################################
 
-PRODUCT = ./lee_region.lib
-PRODUCT_TYPE = "static-library"
-BUILD_TYPE = "Static Library"
+PRODUCT = ./lee_region.dll
+PRODUCT_TYPE = "dynamic-library"
+BUILD_TYPE = "Dynamic Library"
 
 ###########################################################################
 ## INCLUDE PATHS
@@ -183,7 +183,7 @@ DEFINES = $(DEFINES_) $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/codegen/lib/lee_region/lee_region_data.c $(START_DIR)/codegen/lib/lee_region/rt_nonfinite.c $(START_DIR)/codegen/lib/lee_region/rtGetNaN.c $(START_DIR)/codegen/lib/lee_region/rtGetInf.c $(START_DIR)/codegen/lib/lee_region/lee_region_initialize.c $(START_DIR)/codegen/lib/lee_region/lee_region_terminate.c $(START_DIR)/codegen/lib/lee_region/lee_region.c $(START_DIR)/codegen/lib/lee_region/imfilter.c $(START_DIR)/codegen/lib/lee_region/svd.c $(START_DIR)/codegen/lib/lee_region/xzsvdc.c $(START_DIR)/codegen/lib/lee_region/xnrm2.c $(START_DIR)/codegen/lib/lee_region/minOrMax.c $(START_DIR)/codegen/lib/lee_region/xaxpy.c $(START_DIR)/codegen/lib/lee_region/xrotg.c $(START_DIR)/codegen/lib/lee_region/lee_region_emxutil.c
+SRCS = $(START_DIR)/codegen/dll/lee_region/lee_region_data.c $(START_DIR)/codegen/dll/lee_region/rt_nonfinite.c $(START_DIR)/codegen/dll/lee_region/rtGetNaN.c $(START_DIR)/codegen/dll/lee_region/rtGetInf.c $(START_DIR)/codegen/dll/lee_region/lee_region_initialize.c $(START_DIR)/codegen/dll/lee_region/lee_region_terminate.c $(START_DIR)/codegen/dll/lee_region/lee_region.c $(START_DIR)/codegen/dll/lee_region/imfilter.c $(START_DIR)/codegen/dll/lee_region/svd.c $(START_DIR)/codegen/dll/lee_region/xzsvdc.c $(START_DIR)/codegen/dll/lee_region/xnrm2.c $(START_DIR)/codegen/dll/lee_region/minOrMax.c $(START_DIR)/codegen/dll/lee_region/xaxpy.c $(START_DIR)/codegen/dll/lee_region/xrotg.c $(START_DIR)/codegen/dll/lee_region/lee_region_emxutil.c
 
 ALL_SRCS = $(SRCS)
 
@@ -241,7 +241,7 @@ CPPFLAGS += $(CPPFLAGS_OPTS) $(CPPFLAGS_TFL) $(CPPFLAGS_BASIC)
 # C++ Linker
 #---------------
 
-CPP_LDFLAGS_ = -fopenmp
+CPP_LDFLAGS_ = $(DEF_FILE) -fopenmp
 
 CPP_LDFLAGS += $(CPP_LDFLAGS_)
 
@@ -249,7 +249,7 @@ CPP_LDFLAGS += $(CPP_LDFLAGS_)
 # C++ Shared Library Linker
 #------------------------------
 
-CPP_SHAREDLIB_LDFLAGS_ = -fopenmp
+CPP_SHAREDLIB_LDFLAGS_ = $(DEF_FILE) -fopenmp
 
 CPP_SHAREDLIB_LDFLAGS += $(CPP_SHAREDLIB_LDFLAGS_)
 
@@ -257,7 +257,7 @@ CPP_SHAREDLIB_LDFLAGS += $(CPP_SHAREDLIB_LDFLAGS_)
 # Linker
 #-----------
 
-LDFLAGS_ = -fopenmp
+LDFLAGS_ = $(DEF_FILE) -fopenmp
 
 LDFLAGS += $(LDFLAGS_)
 
@@ -281,7 +281,7 @@ MEX_CFLAGS += $(MEX_Compiler_BASIC)
 # Shared Library Linker
 #--------------------------
 
-SHAREDLIB_LDFLAGS_ = -fopenmp
+SHAREDLIB_LDFLAGS_ = $(DEF_FILE) -fopenmp
 
 SHAREDLIB_LDFLAGS += $(SHAREDLIB_LDFLAGS_)
 
@@ -320,13 +320,13 @@ execute : download
 ## FINAL TARGET
 ###########################################################################
 
-#---------------------------------
-# Create a static library         
-#---------------------------------
+#----------------------------------------
+# Create a dynamic library
+#----------------------------------------
 
-$(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
-	@echo "### Creating static library "$(PRODUCT)" ..."
-	$(AR) $(ARFLAGS)  $(PRODUCT) @$(CMD_FILE)
+$(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS)
+	@echo "### Creating dynamic library "$(PRODUCT)" ..."
+	$(LD) $(SHAREDLIB_LDFLAGS) -o $(PRODUCT) @$(CMD_FILE) -Wl,--start-group $(LIBS) -Wl,--end-group $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
 	@echo "### Created: $(PRODUCT)"
 
 
@@ -402,35 +402,35 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.c
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.cpp
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.cc
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.cc
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.cp
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.cp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.cxx
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.cxx
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.CPP
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.CPP
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.c++
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.c++
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.obj : $(START_DIR)/codegen/lib/lee_region/%.C
+%.obj : $(START_DIR)/codegen/dll/lee_region/%.C
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -466,63 +466,63 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-lee_region_data.obj : $(START_DIR)/codegen/lib/lee_region/lee_region_data.c
+lee_region_data.obj : $(START_DIR)/codegen/dll/lee_region/lee_region_data.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-rt_nonfinite.obj : $(START_DIR)/codegen/lib/lee_region/rt_nonfinite.c
+rt_nonfinite.obj : $(START_DIR)/codegen/dll/lee_region/rt_nonfinite.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-rtGetNaN.obj : $(START_DIR)/codegen/lib/lee_region/rtGetNaN.c
+rtGetNaN.obj : $(START_DIR)/codegen/dll/lee_region/rtGetNaN.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-rtGetInf.obj : $(START_DIR)/codegen/lib/lee_region/rtGetInf.c
+rtGetInf.obj : $(START_DIR)/codegen/dll/lee_region/rtGetInf.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-lee_region_initialize.obj : $(START_DIR)/codegen/lib/lee_region/lee_region_initialize.c
+lee_region_initialize.obj : $(START_DIR)/codegen/dll/lee_region/lee_region_initialize.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-lee_region_terminate.obj : $(START_DIR)/codegen/lib/lee_region/lee_region_terminate.c
+lee_region_terminate.obj : $(START_DIR)/codegen/dll/lee_region/lee_region_terminate.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-lee_region.obj : $(START_DIR)/codegen/lib/lee_region/lee_region.c
+lee_region.obj : $(START_DIR)/codegen/dll/lee_region/lee_region.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-imfilter.obj : $(START_DIR)/codegen/lib/lee_region/imfilter.c
+imfilter.obj : $(START_DIR)/codegen/dll/lee_region/imfilter.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-svd.obj : $(START_DIR)/codegen/lib/lee_region/svd.c
+svd.obj : $(START_DIR)/codegen/dll/lee_region/svd.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-xzsvdc.obj : $(START_DIR)/codegen/lib/lee_region/xzsvdc.c
+xzsvdc.obj : $(START_DIR)/codegen/dll/lee_region/xzsvdc.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-xnrm2.obj : $(START_DIR)/codegen/lib/lee_region/xnrm2.c
+xnrm2.obj : $(START_DIR)/codegen/dll/lee_region/xnrm2.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-minOrMax.obj : $(START_DIR)/codegen/lib/lee_region/minOrMax.c
+minOrMax.obj : $(START_DIR)/codegen/dll/lee_region/minOrMax.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-xaxpy.obj : $(START_DIR)/codegen/lib/lee_region/xaxpy.c
+xaxpy.obj : $(START_DIR)/codegen/dll/lee_region/xaxpy.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-xrotg.obj : $(START_DIR)/codegen/lib/lee_region/xrotg.c
+xrotg.obj : $(START_DIR)/codegen/dll/lee_region/xrotg.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-lee_region_emxutil.obj : $(START_DIR)/codegen/lib/lee_region/lee_region_emxutil.c
+lee_region_emxutil.obj : $(START_DIR)/codegen/dll/lee_region/lee_region_emxutil.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 

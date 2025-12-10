@@ -107,12 +107,13 @@
         <part role="matlabCoder">
           <MF0 packageUris="http://schema.mathworks.com/mf0/coderapp_config_datamodel/R2021a.001 http://schema.mathworks.com/mf0/coderapp_core_proj_dm/R2025a http://schema.mathworks.com/mf0/coderapp_core_rt_dm/R2022b http://schema.mathworks.com/mf0/coderapp_form_datamodel/R2020a http://schema.mathworks.com/mf0/coderapp_matlabcoder_proj_dm/R2025a http://schema.mathworks.com/mf0/coderapp_matlabcoder_rt_dm/R2022b http://schema.mathworks.com/mf0/coderapp_types_project_datamodel/R2025a http://schema.mathworks.com/mf0/coderapp_types_runtime_datamodel/R2022b http://schema.mathworks.com/mf0/coderapp_utils_datamodel/R2020a" version="1.1">
             <coderapp.internal.mlc.mfz.MatlabCoderProjectState id="1" type="coderapp.internal.mlc.mfz.MatlabCoderProjectState">
+              <WorkflowTarget>DLL</WorkflowTarget>
               <Activity id="2" type="coderapp.internal.mlc.mfz.MainBuildActivity">
                 <Compile>SUCCESS</Compile>
                 <Generate>SUCCESS</Generate>
                 <TargetHardware>MATLAB Host Computer</TargetHardware>
                 <TargetLanguage>C</TargetLanguage>
-                <WorkflowTarget>LIB</WorkflowTarget>
+                <WorkflowTarget>DLL</WorkflowTarget>
                 <Result id="3" type="coderapp.internal.mlc.mfz.MatlabCoderCodegenResult"/>
               </Activity>
               <CheckIssuesBuildResult id="4" type="coderapp.internal.mlc.mfz.MatlabCoderCodegenResult">
@@ -382,21 +383,21 @@
                 </TestResult>
               </CheckIssuesBuildResult>
               <MainBuildResult id="3" type="coderapp.internal.mlc.mfz.MatlabCoderCodegenResult">
-                <WorkflowTarget>LIB</WorkflowTarget>
-                <LogDirectory>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region</LogDirectory>
+                <WorkflowTarget>DLL</WorkflowTarget>
+                <LogDirectory>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region</LogDirectory>
                 <MainReport id="48" type="coderapp.internal.build.mfz.CodegenArtifact"/>
-                <OutputFile>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\lee_region.lib</OutputFile>
+                <OutputFile>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\lee_region.dll</OutputFile>
                 <Artifacts id="48" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <SubType>CODEGEN_REPORT</SubType>
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\html\report.mldatx</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\html\report.mldatx</Path>
                   </File>
                   <Type>CODEGEN_REPORT</Type>
                 </Artifacts>
                 <Artifacts id="49" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <SubType>LIBRARY</SubType>
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\lee_region.lib</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\lee_region.dll</Path>
                   </File>
                   <Type>BINARY</Type>
                 </Artifacts>
@@ -420,225 +421,218 @@
                 </Artifacts>
                 <Artifacts id="53" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\imfilter.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\imfilter.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="54" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\imfilter.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\imfilter.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="55" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="56" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="57" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_data.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_data.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="58" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_data.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_data.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="59" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_emxutil.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_emxutil.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="60" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_emxutil.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_emxutil.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="61" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_initialize.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_initialize.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="62" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_initialize.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_initialize.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="63" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_terminate.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_terminate.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="64" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_terminate.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_terminate.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="65" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\lee_region_types.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\lee_region_types.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="66" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\minOrMax.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\minOrMax.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="67" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\minOrMax.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\minOrMax.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="68" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\rtGetInf.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\rtGetInf.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="69" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\rtGetInf.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\rtGetInf.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="70" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\rtGetNaN.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\rtGetNaN.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="71" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\rtGetNaN.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\rtGetNaN.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="72" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\rt_nonfinite.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\rt_nonfinite.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="73" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\rt_nonfinite.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\rt_nonfinite.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="74" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\rtwtypes.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\rtwtypes.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="75" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\svd.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\svd.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="76" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\svd.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\svd.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="77" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xaxpy.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xaxpy.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="78" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xaxpy.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xaxpy.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="79" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xnrm2.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xnrm2.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="80" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xnrm2.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xnrm2.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="81" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xrotg.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xrotg.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="82" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xrotg.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xrotg.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="83" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xzsvdc.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xzsvdc.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="84" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\xzsvdc.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\xzsvdc.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="85" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\examples\main.c</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\examples\main.c</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <Artifacts id="86" type="coderapp.internal.build.mfz.CodegenArtifact">
                   <File type="coderapp.internal.util.mfz.FileSpec">
-                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\lib\lee_region\examples\main.h</Path>
+                    <Path>C:\Users\Gebruiker\OneDrive - University of Twente\year 4\Research Project\UTSID_repo\UTSID\MATLAB\codegen\dll\lee_region\examples\main.h</Path>
                   </File>
                   <Type>GENERATED_SOURCE</Type>
                 </Artifacts>
                 <BuildFolder type="coderapp.internal.util.mfz.FileSpec"/>
                 <Success>true</Success>
-                <Timestamp>2025-12-10T19:42:54</Timestamp>
+                <Timestamp>2025-12-10T19:52:27</Timestamp>
               </MainBuildResult>
             </coderapp.internal.mlc.mfz.MatlabCoderProjectState>
           </MF0>
         </part>
         <part role="standaloneConfig">
           <MF0 packageUris="http://schema.mathworks.com/mf0/coderapp_config_datamodel/R2021a.001" version="1.1">
-            <coderapp.internal.ext.ConfigStore id="1" type="coderapp.internal.ext.ConfigStore">
-              <Values id="2" type="coderapp.internal.ext.ConfigEntry">
-                <Key>genCodeOnly</Key>
-                <Data id="3" type="coderapp.internal.config.data.BooleanParamData">
-                  <Help type="coderapp.internal.util.DocRef"/>
-                </Data>
-              </Values>
-            </coderapp.internal.ext.ConfigStore>
+            <coderapp.internal.ext.ConfigStore id="1" type="coderapp.internal.ext.ConfigStore"/>
           </MF0>
         </part>
         <part role="mexConfig">
