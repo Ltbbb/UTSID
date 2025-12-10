@@ -2,7 +2,7 @@
 ## Makefile generated for component 'lee_region'. 
 ## 
 ## Makefile     : lee_region_rtw.mk
-## Generated on : Wed Dec 10 19:06:05 2025
+## Generated on : Wed Dec 10 19:42:50 2025
 ## Final product: ./lee_region.lib
 ## Product type : static-library
 ## 
@@ -24,7 +24,7 @@ MAKEFILE                  = lee_region_rtw.mk
 MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2025b
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2025b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/Users/GEBRUI~1/ONEDRI~1/YEAR4~1/RESEAR~1/UTSID_~1/UTSID/MATLAB~1
+START_DIR                 = C:/Users/GEBRUI~1/ONEDRI~1/YEAR4~1/RESEAR~1/UTSID_~1/UTSID/MATLAB
 TGT_FCN_LIB               = ISO_C
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
