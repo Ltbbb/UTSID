@@ -25,6 +25,8 @@ function [region, edges] = lee_region(img, mask_h, mask_w)
 % License: Simplified BSD License
 
 [img_h, img_w] = size(img);
+disp(img_h);
+disp(img_w);
 
 % Determine lower half starting point
 if mod(img_h,2) == 0
@@ -32,23 +34,36 @@ if mod(img_h,2) == 0
 else
     half_img_h = ceil(img_h/2);
 end
+disp(half_img_h);
 
 % Construct mask for filtering
 mask = zeros(mask_h,mask_w);
+disp(size(mask));
 mask(1:mask_h/2,:) = -1;
 mask(mask_h/2 + 1:end,:) = 1;
+%disp(mask)
 
 % Filter image using mask
 img_filt = imfilter(img, mask,'replicate');
 %figure; imshow(img_filt,[])
+%disp(img_filt)
+%disp(size(img_filt))
 
 % Upper part of filtred image
 img_filt_up = img_filt(1:(half_img_h-1),:);
+%disp(size(img_filt_up))
+%disp(img_filt_up)
+%imshow(img_filt_up, [])
 [~, y_up] = max(img_filt_up); 
+%disp(y_up)
 
 % Lower part of filtred image
 img_filt_lo = img_filt(half_img_h:end,:);
+disp(size(img_filt_lo))
+%disp(img_filt_lo)
+imshow(img_filt_lo, [])
 [~,y_lo] = min(img_filt_lo);
+disp(y_lo)
 
 % Fill region between upper and lower edges
 region = zeros(size(img));
