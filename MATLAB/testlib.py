@@ -3,7 +3,8 @@ from ctypes import cdll
 
 # Load the shared library
 if os.name == 'nt':
-    lee_region = ctypes.CDLL("C:/Users/Gebruiker/OneDrive - University of Twente/year 4/Research Project/UTSID_repo/UTSID/MATLAB/codegen/dll/lee_region/lee_region.dll")
+    name = ctypes.util.find_library('lee_region')
+    lee_region = ctypes.CDLL("C:/Users/Gebruiker/Documents/Coding/Git/UTSID_repo/UTSID/MATLAB/codegen/dll/lee_region/lee_region.dll")
     # lee_region = cdll.LoadLibrary('lee_region.dll')
 else:
     lee_region = ctypes.CDLL('./lee_region.so')
