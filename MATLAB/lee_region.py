@@ -1,3 +1,8 @@
+import cv2
+import math
+import numpy as np
+from PIL import Image
+
 # Localise the finger region using Lee's method
 
 # Parameters:
@@ -23,66 +28,47 @@
 # Date:    20th March 2012
 # License: Simplified BSD License
 
-import cv2
-import math
-import numpy as np
-import scipy
-from PIL import Image
-
-def lee_region(img, mask_h, mask_w): #-> [region, edges]
+def lee_region(img, mask_h, mask_w): 
 
     [img_h, img_w] = img.shape
-    print(img_h)
-    print(img_w)
 
     # Determine lower half starting point
     if img_h % 2 == 0:
         half_img_h = img_h/2
     else:
         half_img_h = math.ceil(img_h/2)
-    print(half_img_h)
 
     # Construct mask for filtering
     mask = np.zeros((mask_h,mask_w));
-    print(mask.shape)
-    mask[1:int(mask_h/2),:] = -1;    
-    mask[int(mask_h/2) + 1:, :] = 1;
-    # print(mask)
+    mask[:int(mask_h/2)] = -1;    
+    mask[int(mask_h/2):] = 1;
 
     # Filter image using mask
-    # img_filt = imfilter(img, mask,'replicate');
-    # img_filt = scipy.ndimage.filters.convolve(img, mask, mode='nearest')
-    img_filt = cv2.filter2D(img, -1, mask)
-    #print(img_filt)
-    #print(img_filt.shape)
-    img_filt_disp = Image.fromarray(img_filt)
-    img_filt_disp.show()
+    img_filt = cv2.filter2D(img, -1, mask) #NOTE: this filter returns just slightly different results than the MATLAB function
+    im = Image.fromarray(img_filt)
+    im.show()
 
     # Upper part of filtred image
     img_filt_up = img_filt[:(half_img_h-1), :];
-    # img_filt_up_disp = Image.fromarray(img_filt_up)
-    # img_filt_up_disp.show()
-    # print(img_filt_up.shape)
     y_up = np.argmax(img_filt_up, axis=0)
-    # print(y_up)
 
     # Lower part of filtred image
     img_filt_lo = img_filt[(half_img_h-1):, :];
-    # img_filt_lo_disp = Image.fromarray(img_filt_lo)
-    # img_filt_lo_disp.show()
-    # print(img_filt_lo.shape)
     y_lo = np.argmin(img_filt_lo, axis=0)
-    # print(y_lo)
 
     # Fill region between upper and lower edges
-    # region = np.zeros(img.shape);
-    # for i in img_w - 1:
-    #     region[y_up(i) : y_lo(i)+size(img_filt_lo,1)][i] = 1;
+    region = np.zeros(img.shape)
+    img_filt_lo_h = img_filt_lo.shape[0]
+    for i in range(img_w - 1):
+        region[y_up[i] : y_lo[i]+img_filt_lo_h, i] = 1
 
-    # # Save y-position of finger edges
-    # edges = np.zeros(2,img_w);
-    # edges[1,:] = y_up;
-    # edges[2,:] = round(y_lo + len(img_filt_lo[0]));
+    # Save y-position of finger edges
+    edges = np.zeros((2,img_w))
+    edges[0,:] = y_up
+    edges[1,:] = np.round(y_lo + img_filt_lo_h)
+    
+    return region, edges
 
-img = cv2.imread("MATLAB/demo_img_1_comp_comp.png", cv2.IMREAD_GRAYSCALE)
-lee_region(img, 4, 40)
+#testing
+# img = cv2.imread("MATLAB/demo_img_1_comp_comp.png", cv2.IMREAD_GRAYSCALE) #NOTE: reading in grayscale is important!
+# lee_region(img, 4, 40)
