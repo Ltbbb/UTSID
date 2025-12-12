@@ -1,19 +1,25 @@
-% --- Executes on button press in butMatch.
-function butMatch_Callback(hObject, eventdata, handles)
-% hObject    handle to butMatch (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-sigma = 5;
-if isempty(handles.img_tpl_veins)
-    [region,edgs] = lee_region(handles.img_tpl, 4, 40);
-    [handles.img_tpl,region] = huang_normalise(handles.img_tpl,region,edgs);
-    tmp = miura_max_curvature(handles.img_tpl,region,sigma);
-    handles.img_tpl_veins = binarize(tmp,'median');
-end
-[region,edgs] = lee_region(handles.img_cap, 4, 40);
-[handles.img_cap,region] = huang_normalise(handles.img_cap,region,edgs);
-tmp = miura_max_curvature(handles.img_cap,region,sigma);
-handles.img_cap_veins = binarize(tmp,'median');
+% LISATB 02-12-25
+% Taken from demo.m, modified to take two img paths as input
 
-score = miura_match(double(handles.img_tpl_veins), double(handles.img_cap_veins),50,100);
-fprintf('Match score: %3.2f%%\n', score*200);
+function [score] = demo_slice(img_cap, img_compare)
+
+%LISATB 02-12-25: open imgs from command line
+img_cap = imread(img_cap);
+img_compare = imread(img_compare);
+
+%params for functions. LISATB 02-12-25
+mask_h = 4;
+mask_w = 40;
+sigma = 5;
+cw = 50;
+ch = 100;
+
+[region,edgs] = lee_region(img_cap, mask_h, mask_w); % get binary mask and edges of the finger region
+[img_cap,region] = huang_normalise(img_cap,region,edgs); % normalize the img using the prev values
+img_cap_templ = miura_max_curvature(img_cap,region,sigma); % generate a template img using max curvature
+img_cap_veins = binarize(img_cap_templ,'median'); % get the img of the captured veins out of the template
+
+%compare and score correlation
+%LISATB 02-12-25: *200 included in score calculation
+score = miura_match(double(img_compare), double(img_cap_veins),cw,ch) * 200;
+fprintf('Match score: %3.2f%\n', score);
