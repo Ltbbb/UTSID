@@ -9,7 +9,3 @@ print(type(img))
 region, edges = lee_region(img, 4, 40)
 max_curvature = mc.MaximumCurvature()
 ret = max_curvature(img, region)
-
-print(ret)
-ret = Image.fromarray(ret)
-ret.show()
