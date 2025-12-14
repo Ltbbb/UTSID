@@ -31,6 +31,8 @@ from PIL import Image
 def lee_region(img, mask_h, mask_w): 
 
     [img_h, img_w] = img.shape
+    im = Image.fromarray(img)
+    #im.show()
 
     # Determine lower half starting point
     if img_h % 2 == 0:
@@ -46,21 +48,23 @@ def lee_region(img, mask_h, mask_w):
     # Filter image using mask
     img_filt = cv2.filter2D(img, -1, mask) #NOTE: this filter returns just slightly different results than the MATLAB function
     im = Image.fromarray(img_filt)
-    im.show()
+    #im.show()
 
     # Upper part of filtred image
-    img_filt_up = img_filt[:(half_img_h-1), :];
+    img_filt_up = img_filt[:int(half_img_h-1), :];
     y_up = np.argmax(img_filt_up, axis=0)
 
     # Lower part of filtred image
-    img_filt_lo = img_filt[(half_img_h-1):, :];
+    img_filt_lo = img_filt[int(half_img_h-1):, :];
     y_lo = np.argmin(img_filt_lo, axis=0)
 
     # Fill region between upper and lower edges
     region = np.zeros(img.shape)
     img_filt_lo_h = img_filt_lo.shape[0]
     for i in range(img_w - 1):
-        region[y_up[i] : y_lo[i]+img_filt_lo_h, i] = 1
+        region[y_up[i] : y_lo[i]+img_filt_lo_h, i] = 255
+    im = Image.fromarray(region)
+    #im.show()
 
     # Save y-position of finger edges
     edges = np.zeros((2,img_w))
@@ -70,5 +74,5 @@ def lee_region(img, mask_h, mask_w):
     return region, edges
 
 #testing
-# img = cv2.imread("MATLAB/demo_img_1_comp_comp.png", cv2.IMREAD_GRAYSCALE) #NOTE: reading in grayscale is important!
+# img = cv2.imread("test_imgs/1.png", cv2.IMREAD_GRAYSCALE) #NOTE: reading in grayscale is important!
 # lee_region(img, 4, 40)
