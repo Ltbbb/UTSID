@@ -1,55 +1,49 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import Menu
+from capture_frame import CaptureFrame
+from files_frame import FilesFrame
+from compare_frame import CompareFrame
+from utils.capture_framework import Framework
+from picamera2 import Picamera2
+
 
 class App(tk.Tk):
 
     def __init__(self):
         super().__init__()
 
-        self.title("App")
-        self.geometry("800x480")
-        self.resizable(False, False) #TODO: change?
+        self.title("UTSID")
+        self.geometry('1024x800')
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
 
-        self.create_menu()
+        #creation of frame
+        notebook = ttk.Notebook(self)
+        notebook.grid(row=0, column=0, sticky="nsew")
 
-    def create_menu(self):
-        menubar = Menu(self)
-        menubar.add_command(label ='Capture', command=self.change_to_capture())
-        menubar.add_command(label ='Files', command=self.change_to_files())
-        menubar.add_command(label ='Compare', command=self.change_to_compare())
+        # Initialize styles
+        s = ttk.Style()
+        s.configure('Frame1.TFrame', background='red')
+        s.configure('Frame2.TFrame', background='blue')
+        s.configure('Frame3.TFrame', background='green')
 
-        self.config(menu = menubar)
+        #Init video stream
+        picam2 = Picamera2()
+        capturing_framework = Framework(picam2=picam2, callback=)
+        
+        # Create first tab
+        tab1 = CaptureFrame(notebook, "Frame1.TFrame")
+        notebook.add(tab1, text="Capture")
 
-    def change_to_capture(self):
-        print("hey!")
-        frame = CaptureFrame(self)
-        frame.grid(column=0,row=0)
-        frame.tkraise()
+        # Second tab
+        tab2 = FilesFrame(notebook, 'Frame2.TFrame')
+        notebook.add(tab2, text="Files")
 
-    def change_to_files(self):
-        None
-
-    def change_to_compare(self):
-        None
-    
-class CaptureFrame(ttk.Frame): #inherits from frame
-
-    def __init__(self, parent):
-        super().__init__(parent, borderwidth="1", relief="raised") #init as frame
-
-        self.columnconfigure(0, weight=2)
-        self.columnconfigure(1, weight=2)
-
-        button = ttk.Button(self, text="hey")
-        button.grid(column=0,row=0)
-
-        button2 = ttk.Button(self, text="hello")
-        button2.grid(column=1,row=0)
-
+        # Third tab
+        tab3 = CompareFrame(notebook, 'Frame3.TFrame')
+        notebook.add(tab3, text="Compare")
 
 if __name__ == "__main__":
     app = App()
-    # ContainerFrame(app)
-    # ControlLabelFrame(app)
     app.mainloop()
