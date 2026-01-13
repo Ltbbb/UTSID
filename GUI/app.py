@@ -4,8 +4,6 @@ from tkinter import Menu
 from capture_frame import CaptureFrame
 from files_frame import FilesFrame
 from compare_frame import CompareFrame
-from utils.capture_framework import Framework
-from picamera2 import Picamera2
 
 
 class App(tk.Tk):
@@ -27,10 +25,6 @@ class App(tk.Tk):
         s.configure('Frame1.TFrame', background='red')
         s.configure('Frame2.TFrame', background='blue')
         s.configure('Frame3.TFrame', background='green')
-
-        #Init video stream
-        picam2 = Picamera2()
-        capturing_framework = Framework(picam2=picam2, callback=)
         
         # Create first tab
         tab1 = CaptureFrame(notebook, "Frame1.TFrame")
