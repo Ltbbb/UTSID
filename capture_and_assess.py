@@ -4,6 +4,8 @@ import os
 import numpy as np
 
 class CaptureAssess(Framework): #inherit from framework
+    KEY_TAKE_PICTURE = "i"
+    KEY_QUIT = "q"
     
     def __init__(self):
         self.IMAGE_FOLDER = "img"
@@ -14,7 +16,7 @@ class CaptureAssess(Framework): #inherit from framework
         # Check for key press
         key = cv2.waitKey(1)
             
-        if key == ord(Framework.KEY_TAKE_PICTURE):
+        if key == ord(self.KEY_TAKE_PICTURE):
             self.img_ctr += 1
             if not os.path.exists(f"{self.IMAGE_FOLDER}"):
                 raise Exception(f"There is no folder called '{self.IMAGE_FOLDER}' in the current directory!")
@@ -23,7 +25,7 @@ class CaptureAssess(Framework): #inherit from framework
             image_name = f'{self.IMAGE_FOLDER}/image_{self.img_ctr}.jpg'
             cv2.imwrite(image_name, frame)
             print(f"Image captured and saved as '{image_name}'.")
-        elif key == ord(Framework.KEY_QUIT):
+        elif key == ord(self.KEY_QUIT):
             Framework.turn_off_leds()
             raise Exception("Closing capture!") #FIXME: is there a better way to do this?
     

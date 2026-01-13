@@ -2,11 +2,14 @@ import tkinter as tk
 from tkinter import ttk
 import imutils
 import cv2
-from PIL import Image
-from PIL import ImageTk
+from PIL import Image, ImageTk, ImageOps
 import threading
+from imutils.video import VideoStream
+import time
+from picamera2 import Picamera2
+import numpy as np
 
-HALF_SCREEN_WIDTH = 512
+HALF_SCREEN_WIDTH = 400
 
 class CaptureFrame(ttk.Frame): #inherits from frame
 
@@ -17,7 +20,7 @@ class CaptureFrame(ttk.Frame): #inherits from frame
         self.grid_columnconfigure(1, uniform=1)
         self.grid_rowconfigure(0, weight=1)
 
-        video = VideoFrame(self, video_stream=None) #TODO: REPLACE
+        video = VideoFrame(self) #TODO: REPLACE
         video.grid(column=0,row=0,sticky="news")
 
         settings = SettingsFrame(self)
@@ -36,7 +39,7 @@ class SettingsFrame(ttk.Frame):
     
 class VideoFrame(ttk.Frame):
 
-    def __init__(self, parent, video_stream):
+    def __init__(self, parent):
         s = ttk.Style()
         s.configure("Video.TFrame", background="pink")
         super().__init__(parent, style="Video.TFrame")
@@ -44,50 +47,57 @@ class VideoFrame(ttk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=10)
 
-        button = tk.Button(self, text="CAPTURE")
+        button = tk.Button(self, text="CAPTURE", command=self.capture_img)
         button.grid(column=0, row=1, sticky="news")
 
-        self.video_stream = video_stream
-        self.video_frame = None
         self.panel = None
+        self.video_frame = None
+        self.img_ctr = 0
+
+        #create picam object to use for video streaming
+        self.picam2 = Picamera2()
+        config = self.picam2.create_still_configuration()  #TODO: change configuration?
+        self.picam2.configure(config)
+        self.picam2.set_controls({"ExposureTime": 5000})
+        self.picam2.start()
 
         #start a thread that constantly pools the video sensor for
 		# the most recently read frame
         self.stopEvent = threading.Event()
         self.thread = threading.Thread(target=self.videoLoop, args=())
         self.thread.start()
-
+    
+    def capture_img(self):
+        print("button press!!!!")
+        capture = self.video_frame
+        print(type(capture))
+        image_name = f'img/finger_{self.img_ctr}.png' #TODO: Image storage
+        self.img_ctr += 1
+        cv2.imwrite(image_name, capture)
 
     def videoLoop(self):
-		# DISCLAIMER:
-		# I'm not a GUI developer, nor do I even pretend to be. This
+		
 		# try/except statement is a pretty ugly hack to get around
 		# a RunTime error that Tkinter throws due to threading
+
         try:
 			# keep looping over frames until we are instructed to stop
-            while not self.stopEvent.is_set():
-				# grab the frame from the video stream and resize it to have a maximum width of 300 pixels
-                # self.video_frame = self.vs.read()
-                # self.video_frame = imutils.resize(self.video_frame, width=HALF_SCREEN_WIDTH)
+            while not self.stopEvent.is_set(): #TODO: stop event
+				#use picam to capture the frames and resize
+                self.video_frame = self.picam2.capture_array()
 		
-				# OpenCV represents images in BGR order; however PIL
-				# represents images in RGB order, so we need to swap
-				# the channels, then convert to PIL and ImageTk format
-                # image = cv2.cvtColor(self.video_frame, cv2.COLOR_BGR2RGB)
-                # image = Image.fromarray(image)
-                image = Image.open("test_imgs/1.png")
-                image = image.resize((HALF_SCREEN_WIDTH, 400))
+				#Change to image and resize
+                image = Image.fromarray(self.video_frame).resize((HALF_SCREEN_WIDTH, 300))
+                image = ImageOps.mirror(image)
                 image = ImageTk.PhotoImage(image)
 		
 				# if the panel is None, we need to initialize it
                 if self.panel is None:
                     self.panel = tk.Label(self, image=image, anchor="center")
-                    # self.panel.pack(side="left", padx=10, pady=10)
                     self.panel.grid(column=0, row=0, sticky="nsew")
-		
-				# otherwise, simply update the panel
                 else:
                     self.panel.configure(image=image)
                     self.panel.image = image
+
         except RuntimeError as e:
             print(f"[INFO] caught a RuntimeError: {e}")

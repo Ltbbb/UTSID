@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import Menu
-from capture_frame import CaptureFrame
-from files_frame import FilesFrame
-from compare_frame import CompareFrame
+from GUI.capture_frame import CaptureFrame
+from GUI.files_frame import FilesFrame
+from GUI.compare_frame import CompareFrame
 
 
 class App(tk.Tk):
@@ -12,7 +12,8 @@ class App(tk.Tk):
         super().__init__()
 
         self.title("UTSID")
-        self.geometry('1024x800')
+        self.geometry('1024x600')
+        self.resizable(False, False)
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
 
@@ -37,6 +38,9 @@ class App(tk.Tk):
         # Third tab
         tab3 = CompareFrame(notebook, 'Frame3.TFrame')
         notebook.add(tab3, text="Compare")
+
+        # tab4 = ttk.Frame(notebook)
+        # notebook.add(tab4, text="Exit")
 
 if __name__ == "__main__":
     app = App()
