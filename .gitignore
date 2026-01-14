@@ -5,4 +5,5 @@ include
 bin
 lib*
 test_imgs
-
+data
+UTSID
