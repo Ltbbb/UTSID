@@ -27,6 +27,7 @@ class SettingsFrame(ttk.Frame):
         self.currentfinger = None
         self.currentguide = None
         self.participantname = None
+        self.currentPWM = None
 
         self.create_sliders_block()
         self.create_settings_block()
@@ -119,6 +120,7 @@ class SettingsFrame(ttk.Frame):
             pwm_val = slider_val.get()
             print(f"PWM factor changed to: {pwm_val}")
             rw.send_to_arduino(pwm_val)
+            self.currentPWM = pmw_val
 
         slider_val = tk.IntVar()
         ttk.Scale(
@@ -141,12 +143,20 @@ class SettingsFrame(ttk.Frame):
             new_val = slider_val.get() + 10
             slider_val.set(new_val)
             value_label.configure(text=f"{name}: {'{:.0f}'.format(new_val)}")
+            pwm_val = new_val
+            print(f"PWM factor changed to: {pwm_val}")
+            rw.send_to_arduino(pwm_val)
+            self.currentPWM = pwm_val
             
         
         def subtract():
             new_val = slider_val.get() - 10
             slider_val.set(new_val)
             value_label.configure(text=f"{name}: {'{:.0f}'.format(new_val)}")
+            pwm_val = new_val
+            print(f"PWM factor changed to: {pwm_val}")
+            rw.send_to_arduino(pwm_val)
+            self.currentPWM = pwm_val
 
         plus_button = ttk.Button(slider_container,text="+", command=add).grid(row=1, column=2, sticky="n")
         minus_button = ttk.Button(slider_container,text="-", command=subtract).grid(row=1, column=0, sticky="n")
