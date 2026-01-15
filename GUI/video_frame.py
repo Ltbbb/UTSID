@@ -13,7 +13,9 @@ from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
 from GUI.settings_frame import SettingsFrame
 
-HALF_SCREEN_WIDTH = 512 #400
+
+SESSION_NUMBER = 1
+HALF_SCREEN_WIDTH = 512
 
 class VideoFrame(ttk.Frame):
 
@@ -23,7 +25,7 @@ class VideoFrame(ttk.Frame):
         super().__init__(parent, style="Video.TFrame")
 
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=10)
+        self.grid_rowconfigure(0, weight=9)
         self.grid_rowconfigure(1, weight=1)
 
         self.settingsframe = settingsframe
@@ -55,16 +57,14 @@ class VideoFrame(ttk.Frame):
         self.thread.start()
     
     def capture_img(self):
+        global SESSION_NUMBER
         currentfinger = self.settingsframe.currentfinger
         currentguide = self.settingsframe.currentguide
-        participantname = "lisa"
-        SESSION_NUMBER = 1
+        participantname = self.settingsframe.participantname
         print("button press!!!!")
         if currentfinger == "finger" or currentguide == "VX" or participantname == "":
             showwarning("Warning!", "Fill in all fields")
         capture = self.video_frame
-        print(capture)
-        print(type(capture))
         image_name = f'data/{currentguide}/{participantname}_{currentfinger}_{SESSION_NUMBER}_{self.img_ctr}.png' #TODO: Image storage #TODO: impl counter
         print(image_name)
         self.img_ctr += 1

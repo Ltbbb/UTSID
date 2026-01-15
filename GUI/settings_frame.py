@@ -47,7 +47,7 @@ class SettingsFrame(ttk.Frame):
         lf1 = self.create_labelframe(settingsthing, "Guide", ["V1", "V2", "V3", "V4", "VX"])
         lf1.grid(column=0, row=1, sticky="news")
 
-        lf1 = self.create_labelframe(settingsthing, "Finger", ["L_Index", "L_Middle", "L_Ring", "R_Index", "R_Middle", "R_Ring", "X"])
+        lf1 = self.create_labelframe(settingsthing, "Finger", ["L_Index", "L_Middle", "L_Ring", "R_Index", "R_Middle", "R_Ring"])
         lf1.grid(column=1, row=1, sticky="news")
 
         name_label = ttk.Label(settingsthing, text="Name:")
@@ -92,21 +92,21 @@ class SettingsFrame(ttk.Frame):
         sliders.grid_rowconfigure(1, weight=1)
         sliders.grid_rowconfigure(2, weight=1)
 
-        self.slider1 = self.create_slider(parent=sliders, name="PWM", callback=self.PWM_callback)
-        self.slider1.grid(column=0,row=0,sticky="ew", pady=10)
+        self.slider1 = self.create_slider(parent=sliders, name="PWM")
+        self.slider1.grid(column=0,row=0,sticky="nsew", pady=10)
 
-        slider2 = self.create_slider(parent=sliders, name="brightness", callback=None)
-        slider2.grid(column=0,row=1,sticky="ew", pady=10)
+        # slider2 = self.create_slider(parent=sliders, name="brightness", callback=None)
+        # slider2.grid(column=0,row=1,sticky="nsew", pady=10)
 
-        slider3 = self.create_slider(parent=sliders, name="zoom", callback=None)
-        slider3.grid(column=0,row=2,sticky="ew", pady=10)
+        # slider3 = self.create_slider(parent=sliders, name="zoom", callback=None)
+        # slider3.grid(column=0,row=2,sticky="nsew", pady=10)
 
-    def PWM_callback(self, val):
-        pwm_val= int(val.split(".")[0]) * 10
-        print(f"PWM factor changed to: {pwm_val}")
-        rw.send_to_arduino(pwm_val)
+    # def PWM_callback(self, val):
+    #     pwm_val= int(val.split(".")[0]) * 10
+    #     print(f"PWM factor changed to: {pwm_val}")
+    #     rw.send_to_arduino(pwm_val)
 
-    def create_slider(self, parent, name, callback):
+    def create_slider(self, parent, name):
         slider_container = ttk.Frame(parent)
         slider_container.grid_columnconfigure(0,weight=1)
         slider_container.grid_columnconfigure(1,weight=10)
@@ -116,27 +116,40 @@ class SettingsFrame(ttk.Frame):
 
         def on_slider_change(self):
             value_label.configure(text=f"{name}: {'{:.0f}'.format(slider_val.get())}")
+            pwm_val = slider_val.get()
+            print(f"PWM factor changed to: {pwm_val}")
+            rw.send_to_arduino(pwm_val)
 
         slider_val = tk.IntVar()
         ttk.Scale(
         slider_container,
-        from_=0,
-        to=100,
+        from_=1,
+        to=200,
         orient='horizontal',  
-        variable= slider_val,
-        command=callback,
-        # length=HALF_SCREEN_WIDTH - 5,
-        ).grid(column=0,row=0,columnspan=3, sticky="ew")
+        variable = slider_val,
+        command=on_slider_change,
+        ).grid(column=0,row=0,columnspan=3, sticky="nsew")
 
         # value label
         value_label = ttk.Label(
             slider_container,
-            text=f"{name}: {slider_val.get()}",
+            text=f"{name}: 1",
         )
         value_label.grid(row=1,column=1)
 
-        plus_button = ttk.Button(slider_container,text="+").grid(row=1, column=2, sticky="n")
-        minus_button = ttk.Button(slider_container,text="-").grid(row=1, column=0, sticky="n")
+        def add():
+            new_val = slider_val.get() + 10
+            slider_val.set(new_val)
+            value_label.configure(text=f"{name}: {'{:.0f}'.format(new_val)}")
+            
+        
+        def subtract():
+            new_val = slider_val.get() - 10
+            slider_val.set(new_val)
+            value_label.configure(text=f"{name}: {'{:.0f}'.format(new_val)}")
+
+        plus_button = ttk.Button(slider_container,text="+", command=add).grid(row=1, column=2, sticky="n")
+        minus_button = ttk.Button(slider_container,text="-", command=subtract).grid(row=1, column=0, sticky="n")
 
         return slider_container
 

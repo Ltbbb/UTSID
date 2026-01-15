@@ -14,18 +14,12 @@ from tkinter.messagebox import showerror, showwarning, showinfo
 from GUI.settings_frame import SettingsFrame
 from GUI.video_frame import VideoFrame
 
-HALF_SCREEN_WIDTH = 512 #400
-currentfinger = "finger"
-currentguide = ""
-participantname = ""
-SESSION_NUMBER = 1
-
 class CaptureFrame(ttk.Frame): #inherits from frame
 
     def __init__(self, parent, style_arg):
         super().__init__(parent, style=style_arg) #init as frame
 
-        self.grid_columnconfigure(0, weight=6)
+        self.grid_columnconfigure(0, weight=5)
         self.grid_columnconfigure(1, weight=4)
         self.grid_rowconfigure(0, weight=1)
 
