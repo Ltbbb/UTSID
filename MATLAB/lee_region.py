@@ -48,8 +48,8 @@ def lee_region(img, mask_h, mask_w):
 
     # Filter image using mask
     img_filt = cv2.filter2D(img, cv2.CV_32F, mask) #NOTE: this filter returns just slightly different results than the MATLAB function
-    im = Image.fromarray(img_filt)
-    im.show()
+    # im = Image.fromarray(img_filt)
+    # im.show()
 
     # Upper part of filtred image
     img_filt_up = img_filt[:int(half_img_h-1), :];
@@ -64,8 +64,8 @@ def lee_region(img, mask_h, mask_w):
     img_filt_lo_h = img_filt_lo.shape[0]
     for i in range(img_w - 1):
         region[y_up[i] : y_lo[i]+img_filt_lo_h, i] = 255
-    im = Image.fromarray(region)
-    im.show()
+    # im = Image.fromarray(region)
+    # im.show()
 
     # Save y-position of finger edges
     edges = np.zeros((2,img_w))

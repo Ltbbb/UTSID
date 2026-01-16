@@ -3,6 +3,8 @@ from Miura.MiuraMatch import MiuraMatch
 from MATLAB.lee_region import lee_region
 import cv2 
 from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
 
 #create instances of runnable objs
 max_curvature = MaximumCurvature()
@@ -17,6 +19,7 @@ img2 = cv2.imread(imgpath2, 0) #NOTE: its important that the img gets read in gr
 #get both img templates
 mask1, _ = lee_region(img1, 4, 40)
 templ1 = max_curvature(img1, mask1)
+# plt.imsave(filename,templ1) #to visualize: cmap = 'grey'
 mask2, _ = lee_region(img2, 4, 40)
 templ2 = max_curvature(img2, mask2)
 
