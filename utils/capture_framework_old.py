@@ -1,18 +1,17 @@
 import cv2
 from picamera2 import Picamera2
 import time
-import utils.read_write as rw
+import read_write as rw
 
 class Framework():
 
-    def __init__(self, callback):
+    def __init__(self):
         #set values
         self.brightness = 0
         self.zoom_factor = 1
         self.pwm_val = 0
         self.KEY_TAKE_PICTURE = "i"
         self.KEY_QUIT = "q"
-        self.frame = None
 
         #Init picamera
         self.picam2 = Picamera2()
@@ -20,6 +19,8 @@ class Framework():
         self.picam2.configure(config)
         self.picam2.set_controls({"ExposureTime": 5000})
         self.picam2.start()
+
+        print("picam started")
 
         # Give some time to the camera to start
         time.sleep(2)
@@ -32,22 +33,23 @@ class Framework():
         cv2.createTrackbar('Zoom', 'Camera', 2, 20, self.on_zoom_change)
         cv2.createTrackbar('PWM', 'Camera', 100, 350, self.on_pwm_change)
 
-        self.capture_images(callback)
+        print("capturing images...")
+        self.capture_images()
         
-    def capture_images(self, on_frame):
+    def capture_images(self):
         while True:
             # Capture frame-by-frame
-            self.frame = self.picam2.capture_array()
+            frame = self.picam2.capture_array()
 
-            # # Adjust brightness and zoom
-            self.FRAME = self.adjust_brightness(self.FRAME, self.brightness)
-            self.FRAME = self.apply_zoom(self.FRAME, self.zoom_factor)
+            # Adjust brightness and zoom
+            frame = self.adjust_brightness(frame, self.brightness)
+            frame = self.apply_zoom(frame, self.zoom_factor)
 
-            # # Display the frame
-            cv2.imshow('Camera', self.FRAME)
+            # Display the frame
+            cv2.imshow('Camera', frame)
 
             try:
-                self.on_frame(self.frame)
+                self.on_frame(frame)
             except Exception as e:
                 print(e)
                 break
@@ -105,3 +107,6 @@ class Framework():
 
     def display_on_frame(self, msg: str):
         print(msg) #TODO: draw on frame
+
+if __name__ == "__main__":
+    Framework()

@@ -4,10 +4,8 @@ import time
 
 class Framework():
 
-    def __init__(self, callback):
+    def __init__(self):
         #set values
-        self.KEY_TAKE_PICTURE = "i"
-        self.KEY_QUIT = "q"
         self.frame = None
 
         #Init picamera
@@ -20,9 +18,10 @@ class Framework():
         # Give some time to the camera to start
         time.sleep(2)
 
-        self.capture_images(callback)
+        print("capturing images...")
+        self.capture_images()
         
-    def capture_images(self, on_frame):
+    def capture_images(self):
         while True:
             # Capture frame-by-frame
             self.frame = self.picam2.capture_array()
@@ -37,6 +36,7 @@ class Framework():
         self.picam2.stop()
 
     def on_frame(self, frame):
+        print("frame")
         return frame
 
     def display_img(self, img_path: str, caption: str):
@@ -48,3 +48,6 @@ class Framework():
 
     def display_on_frame(self, msg: str):
         print(msg) #TODO: draw on frame
+
+if __name__ == "__main__":
+    Framework()
