@@ -1,8 +1,12 @@
 function [] = test()
 
-img = "demo_img_1_comp_comp.png";
+img = "1.png";
 img = imread(img);
 [rows, columns, numberOfColorChannels] = size(img);
 
-lee_region(img, 4, 40);
+[region, edges] = lee_region(img, 4, 40);
+huang_normalise(img, region, edges);
+
+
+
 

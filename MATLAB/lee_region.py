@@ -49,15 +49,15 @@ def lee_region(img, mask_h, mask_w):
     # Filter image using mask
     img_filt = cv2.filter2D(img, cv2.CV_32F, mask) #NOTE: this filter returns just slightly different results than the MATLAB function
     # im = Image.fromarray(img_filt)
-    # im.show()
+    # im.show(title="img_filt")
 
     # Upper part of filtred image
     img_filt_up = img_filt[:int(half_img_h-1), :];
-    y_up = np.argmax(img_filt_up, axis=0)
+    y_up = np.argmin(img_filt_up, axis=0)
 
     # Lower part of filtred image
     img_filt_lo = img_filt[int(half_img_h-1):, :];
-    y_lo = np.argmin(img_filt_lo, axis=0)
+    y_lo = np.argmax(img_filt_lo, axis=0)
 
     # Fill region between upper and lower edges
     region = np.zeros(img.shape)
@@ -65,7 +65,7 @@ def lee_region(img, mask_h, mask_w):
     for i in range(img_w - 1):
         region[y_up[i] : y_lo[i]+img_filt_lo_h, i] = 255
     # im = Image.fromarray(region)
-    # im.show()
+    # im.show(title="mask")
 
     # Save y-position of finger edges
     edges = np.zeros((2,img_w))
@@ -75,5 +75,5 @@ def lee_region(img, mask_h, mask_w):
     return region, edges
 
 # testing
-img = cv2.imread("test_imgs/1.png", cv2.IMREAD_GRAYSCALE) #NOTE: reading in grayscale is important!
-lee_region(img, 4, 40)
+# img = cv2.imread("test_imgs/1.png", cv2.IMREAD_GRAYSCALE) #NOTE: reading in grayscale is important!
+# lee_region(img, 4, 40)
